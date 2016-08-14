@@ -23,11 +23,17 @@ class Message{
     protected void setSMSType(int smsType){
         this.smsType = smsType;
     }
+    protected int getSMSType(){
+        return this.smsType;
+    }
     protected void setDateTime(long dateTime){
         this.dateTime = dateTime;
     }
     protected void setMessageBody(String messageBody){
         this.messageBody = messageBody;
+    }
+    protected String getMessageBody() {
+        return this.messageBody;
     }
 
 }

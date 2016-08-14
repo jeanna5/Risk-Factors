@@ -9,7 +9,6 @@ class Device {
     List<Call> calls = new ArrayList<>();
     List<Message> messages = new ArrayList<>();
     List<Contact> contacts = new ArrayList<>();
-    public Device(){}
     public Device(String id){
         this.id = id;
     }
@@ -21,6 +20,9 @@ class Device {
     }
     protected void addData(Contact contact){
         contacts.add(contact);
+    }
+    protected List<Message> getMessages(){
+        return messages;
     }
 
 

@@ -13,7 +13,7 @@ public class FileParser {
 
     JsonParser parser = new JsonParser();
 
-    public List<User> processFiles(String filePath) {
+    public List<User> createUsersFromFile(String filePath) {
         List<User> users = new ArrayList<>();
         File folder = new File(filePath);
         File[] listOfFiles = folder.listFiles();
