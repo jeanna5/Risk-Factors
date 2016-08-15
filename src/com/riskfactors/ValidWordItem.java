@@ -92,6 +92,5 @@ public class ValidWordItem {
 
     protected void createEntry(){
         setMessageCounts();
-        //call to database
     }
 }

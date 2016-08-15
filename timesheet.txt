@@ -1,0 +1,4 @@
+Timesheet to track time spent on the project.
+
+Saturday 8/13 11:30am - 7pm
+Sunday 8/14 1:30pm - 6:30pm
