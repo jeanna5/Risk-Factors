@@ -1,9 +1,9 @@
 package com.riskfactors;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
-
-//my path: "/Users/jeanna.gindi/Documents/user_data"
 
 public class RiskFactors {
     Dictionary dictionary;
@@ -22,11 +22,24 @@ public class RiskFactors {
         List<Feature> featureList = new ArrayList<>();
         featureList.add(new ValidWordFeature(users, dictionary));
         calculateFeatures(featureList);
+        publishToDB(featureList);
         System.out.println();
     }
     protected static void calculateFeatures(List<Feature> featureList){
         for(Feature feature: featureList){
             feature.createFeature();
         }
+    }
+    protected void publishToDB(List<Feature> featureList){
+        try{
+
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/riskfactors", password);
+            for(Feature feature: featureList){
+                feature.publishToDB(connection);
+            }
+        }catch (Exception exc) {
+            exc.printStackTrace();
+        }
+
     }
 }

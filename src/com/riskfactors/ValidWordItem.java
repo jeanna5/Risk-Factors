@@ -29,6 +29,28 @@ public class ValidWordItem {
         setID(user.getID());
         setAllMessages(user);
     }
+    protected int getUserID(){
+        return userID;
+    }
+    protected int getInboxTotalMessages(){
+        return inboxTotalMessages;
+    }
+    protected int getOutboxTotalMessages(){
+        return outboxTotalMessages;
+    }
+    protected int getInboxTotalWords(){
+        return inboxTotalWords;
+    }
+    protected int getOutboxTotalWords(){
+        return outboxTotalWords;
+    }
+    protected int getInboxValidWords(){
+        return inboxValidWords;
+    }
+    protected int getOutboxValidWords(){
+        return outboxValidWords;
+    }
+
     protected void setAllMessages(User user){
         for(Device device : user.getDevices()){
             for(Message message : device.getMessages()){
