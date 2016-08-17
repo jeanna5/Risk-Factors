@@ -24,6 +24,9 @@ class Device {
     protected List<Message> getMessages(){
         return messages;
     }
+    protected List<Contact> getContacts(){
+        return contacts;
+    }
 
 
 

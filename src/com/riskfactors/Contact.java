@@ -27,6 +27,9 @@ class Contact { //currently not storing labels
     protected void addPhoneNumber(String phoneNumber){
         phoneNumbers.add(phoneNumber);
     }
+    protected ArrayList<String> getPhoneNumbers(){
+        return phoneNumbers;
+    }
 
 
 }

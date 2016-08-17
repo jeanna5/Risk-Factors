@@ -11,7 +11,7 @@ public class ValidWordFeature extends Feature{
     List<User> users;
     List<ValidWordItem> items = new ArrayList<>();
 
-    public ValidWordFeature(List<User> users, Dictionary dictionary){
+    protected ValidWordFeature(List<User> users, Dictionary dictionary){
         this.users = users;
         this.dictionary = dictionary;
         setTableName("valid_words_tbl");
@@ -30,8 +30,8 @@ public class ValidWordFeature extends Feature{
         for (ValidWordItem item : items) {
             String query = "insert into " + this.getTableName() +
                     " (user_id, inbox_total_messages, outbox_total_messages, " +
-                    "inbox_total_words, outbox_total_words, inbox_valid_words, " +
-                    "outbox_valid_words)" + "values (?, ?, ?, ?, ?, ?, ?)";
+                    "inbox_total_words, outbox_total_words, inbox_valid_word_percent, " +
+                    "outbox_valid_word_percent)" + "values (?, ?, ?, ?, ?, ?, ?)";
             try {
                 PreparedStatement preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setInt(1, item.getUserID());
@@ -39,9 +39,8 @@ public class ValidWordFeature extends Feature{
                 preparedStmt.setInt(3, item.getOutboxTotalMessages());
                 preparedStmt.setInt(4, item.getInboxTotalWords());
                 preparedStmt.setInt(5, item.getOutboxTotalWords());
-                preparedStmt.setInt(6, item.getInboxValidWords());
-                preparedStmt.setInt(7, item.getOutboxValidWords());
-
+                preparedStmt.setDouble(6, item.getInboxValidWordsPercent());
+                preparedStmt.setDouble(7, item.getOutboxValidWordsPercent());
                 preparedStmt.execute();
             } catch (Exception e) {
                 System.err.println(e.getMessage());

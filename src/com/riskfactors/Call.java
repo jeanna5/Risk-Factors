@@ -1,11 +1,11 @@
 package com.riskfactors;
 
 class Call{
-    int itemID; //what is this for??
+    int itemID;
     String name;
     long dateTime;
     String phoneNumber;
-    int callType; // what does it mean? how many types? all ints?
+    int callType;
     int duration; // in minutes
     protected void setItemID(int itemID){
         this.itemID = itemID;

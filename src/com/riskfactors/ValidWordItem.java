@@ -24,7 +24,7 @@ public class ValidWordItem {
     int outboxValidWords;
     List<Message> allMessages = new ArrayList<>();
     Dictionary dictionary;
-    public ValidWordItem(User user, Dictionary dictionary){
+    protected ValidWordItem(User user, Dictionary dictionary){
         this.dictionary = dictionary;
         setID(user.getID());
         setAllMessages(user);
@@ -44,13 +44,18 @@ public class ValidWordItem {
     protected int getOutboxTotalWords(){
         return outboxTotalWords;
     }
-    protected int getInboxValidWords(){
-        return inboxValidWords;
+    protected double getOutboxValidWordsPercent(){
+        if(outboxTotalWords>0){
+            return outboxValidWords * 100 / outboxTotalWords;
+        }
+        return 0;
     }
-    protected int getOutboxValidWords(){
-        return outboxValidWords;
+    protected double getInboxValidWordsPercent(){
+        if(inboxTotalWords>0) {
+            return inboxValidWords * 100 / inboxTotalWords;
+        }
+        return 0;
     }
-
     protected void setAllMessages(User user){
         for(Device device : user.getDevices()){
             for(Message message : device.getMessages()){
@@ -63,7 +68,10 @@ public class ValidWordItem {
     }
     protected void setMessageCounts(){
         for(Message nextMessage : allMessages){
-            String[] messageArr = nextMessage.getMessageBody().split(" ");
+
+            //removes numbers, punctuation, and capitalization
+            String[] messageArr = nextMessage.getMessageBody().replaceAll("[^a-zA-Z ]", "").toLowerCase().split(" ");
+
             if(nextMessage.getSMSType() == INCOMING){
                 inboxTotalMessages++;
                 inboxTotalWords += getTotalWordsInMessage(messageArr);
@@ -76,7 +84,6 @@ public class ValidWordItem {
             }
         }
     }
-    //unfinished: need to parse out numbers and punctuation so it isn't counted against the user
     protected int getTotalWordsInMessage(String[] words){
         return words.length;
     }

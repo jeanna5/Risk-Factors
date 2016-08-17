@@ -15,15 +15,15 @@ public class RiskFactors {
     public static void main(String[] args) { //takes 2 arguments: path to user_data, path to dictionary text file
         FileParser fileParser = new FileParser();
         RiskFactors riskFactors = new RiskFactors(fileParser.createUsersFromFile(args[0]), new Dictionary(args[1]));
-        System.out.println("Files parsed :)");
         riskFactors.buildFeatures();
+        System.out.println();
     }
     protected void buildFeatures(){
         List<Feature> featureList = new ArrayList<>();
         featureList.add(new ValidWordFeature(users, dictionary));
+        featureList.add(new SharedContactFeature(users));
         calculateFeatures(featureList);
         publishToDB(featureList);
-        System.out.println();
     }
     protected static void calculateFeatures(List<Feature> featureList){
         for(Feature feature: featureList){
@@ -33,7 +33,7 @@ public class RiskFactors {
     protected void publishToDB(List<Feature> featureList){
         try{
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/riskfactors", password);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/riskfactors", "", "");
             for(Feature feature: featureList){
                 feature.publishToDB(connection);
             }
